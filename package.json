@@ -2,6 +2,9 @@
   "name": "is-modern",
   "version": "1.0.0",
   "description": "A CLI tool that tells you if a package is using modern code.",
+  "bin": {
+    "is-modern": "cli.js"
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/GaryLChew/is-modern.git"
