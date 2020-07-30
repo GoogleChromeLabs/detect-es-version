@@ -1,0 +1,72 @@
+{
+  "_from": "toybox-js-render-component",
+  "_id": "toybox-js-render-component@0.1.7",
+  "_inBundle": false,
+  "_integrity": "sha1-rR+5qsRVuOM+Z2J4bVIBhwB3R/Y=",
+  "_location": "/toybox-js-render-component",
+  "_phantomChildren": {
+    "toybox-js-render-component": "0.1.7"
+  },
+  "_requested": {
+    "type": "tag",
+    "registry": true,
+    "raw": "toybox-js-render-component",
+    "name": "toybox-js-render-component",
+    "escapedName": "toybox-js-render-component",
+    "rawSpec": "",
+    "saveSpec": null,
+    "fetchSpec": "latest"
+  },
+  "_requiredBy": [
+    "#USER",
+    "/toybox-js-render-component/toybox-js-parse-variables/toybox-js-render-nested-components",
+    "/toybox-js-render-component/toybox-js-render-nested-components"
+  ],
+  "_resolved": "https://registry.npmjs.org/toybox-js-render-component/-/toybox-js-render-component-0.1.7.tgz",
+  "_shasum": "ad1fb9aac455b8e33e6762786d520187007747f6",
+  "_spec": "toybox-js-render-component",
+  "_where": "C:\\Code\\google\\is-modern\\test\\scripts",
+  "author": {
+    "name": "nrobisoncox",
+    "email": "nrobisoncox@ondeck.com"
+  },
+  "bundleDependencies": false,
+  "dependencies": {
+    "clone": "^2.0.0",
+    "deepmerge": "^1.2.0",
+    "jsonpath": "^0.2.7",
+    "toybox-js-parse-variables": "0.2.6",
+    "toybox-js-render-nested-components": "0.16.7",
+    "toybox-js-xtype": "3.0.2"
+  },
+  "deprecated": false,
+  "description": "Renders a toybox block component.",
+  "devDependencies": {
+    "buble": "^0.14.0",
+    "chai": "^3.5.0",
+    "jsdoc-to-markdown": "^2.0.1",
+    "mocha": "^3.1.2",
+    "mustache": "^2.3.0",
+    "reify": "^0.4.0",
+    "rfile": "^1.0.0",
+    "rollup": "^0.36.3",
+    "rollup-plugin-buble": "^0.14.0"
+  },
+  "jsnext:main": "jsnext-build.js",
+  "keywords": [
+    "toybox",
+    "render",
+    "component"
+  ],
+  "license": "X11",
+  "main": "build.js",
+  "name": "toybox-js-render-component",
+  "scripts": {
+    "buble": "buble index.js --no modules > jsnext-build.js",
+    "docs": "jsdoc2md --template README.hbs --files index.js > README.md; echo",
+    "prepublish": "npm run rollup && npm run buble",
+    "rollup": "rollup -c",
+    "test": "npm run prepublish && mocha --require reify spec"
+  },
+  "version": "0.1.7"
+}

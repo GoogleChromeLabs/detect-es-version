@@ -1,0 +1,2 @@
+!function(e,t){"object"==typeof exports&&"undefined"!=typeof module?t():"function"==typeof define&&define.amd?define(t):t()}(this,function(){function e(e){var n=e[0],o=e[1]||{},i=e[2]||[],d=e[3],f=document.createElement(n);for(var r in o)"string"==typeof o[r]?f.setAttribute(r,o[r]):f[r]=o[r];return t(f,i),void 0!==d&&d(f),f}function t(t,n){n=n||[];for(var o=0;o<n.length;o++)n[o]&&("string"==typeof n[o]?t.appendChild(document.createTextNode(n[o])):t.appendChild(e(n[o])))}module.exports={h:e,mount:t}});
+//# sourceMappingURL=domlette.umd.js.map
