@@ -1,0 +1,86 @@
+{
+  "_from": "domlette",
+  "_id": "domlette@1.0.2",
+  "_inBundle": false,
+  "_integrity": "sha1-VspK9gwM+qszmM/nZ4kOdFMp7S0=",
+  "_location": "/domlette",
+  "_phantomChildren": {},
+  "_requested": {
+    "type": "tag",
+    "registry": true,
+    "raw": "domlette",
+    "name": "domlette",
+    "escapedName": "domlette",
+    "rawSpec": "",
+    "saveSpec": null,
+    "fetchSpec": "latest"
+  },
+  "_requiredBy": [
+    "#USER",
+    "/"
+  ],
+  "_resolved": "https://registry.npmjs.org/domlette/-/domlette-1.0.2.tgz",
+  "_shasum": "56ca4af60c0cfaab3398cfe767890e745329ed2d",
+  "_spec": "domlette",
+  "_where": "C:\\Code\\google\\is-modern\\test\\scripts",
+  "amdName": "domlette",
+  "author": {
+    "name": "MobiusHorizons",
+    "email": "codemobius@gmail.com"
+  },
+  "bugs": {
+    "url": "https://github.com/MobiusHorizons/domlette/issues"
+  },
+  "bundleDependencies": false,
+  "deprecated": false,
+  "description": "Miniscule DOM creation library",
+  "devDependencies": {
+    "babel-core": "^6.9.1",
+    "babili": "0.0.12",
+    "chai": "^3.5.0",
+    "eslint": "^3.13.1",
+    "flow-bin": "^0.38.0",
+    "gzip-size-cli": "^1.0.0",
+    "mkdirp": "^0.5.1",
+    "mocha": "^3.2.0",
+    "npm-run-all": "^2.1.1",
+    "pretty-bytes-cli": "^2.0.0",
+    "rimraf": "^2.5.2",
+    "rollup": "^0.41.4",
+    "sinon": "^1.17.4",
+    "sinon-chai": "^2.8.0",
+    "standard-version": "^4.0.0",
+    "strip-json-comments-cli": "^1.0.1",
+    "uglify-js": "^2.6.2"
+  },
+  "es5:src": "src/index.es5.js",
+  "files": [
+    "src",
+    "dist"
+  ],
+  "homepage": "https://github.com/MobiusHorizons/domlette#readme",
+  "jsnext:main": "dist/domlette.es6.js",
+  "jsnext:src": "src/index.es6.js",
+  "license": "MIT",
+  "main": "dist/domlette.js",
+  "name": "domlette",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/MobiusHorizons/domlette.git"
+  },
+  "scripts": {
+    "build": "npm-run-all clean rollup:umd -p minify:* -p size:*",
+    "bump": "standard-version",
+    "clean": "rimraf dist && mkdirp dist",
+    "docs": "documentation readme src/index.es6.js --section API -q",
+    "minify:cjs": "uglifyjs $npm_package_es5_src -cm toplevel -o $npm_package_main -p relative --source-map ${npm_package_main}.map",
+    "minify:es6": "babili ${npm_package_jsnext_src} --out-file $npm_package_jsnext_main --source-maps",
+    "minify:umd": "uglifyjs $npm_package_umd_main -cm -o $npm_package_umd_main -p relative --source-map ${npm_package_umd_main}.map",
+    "release": "npm run build -s && npm run bump && git push --follow-tags origin master && npm publish",
+    "rollup:umd": "rollup -c rollup.config.js -m -f umd -n $npm_package_amdName $npm_package_es5_src -o $npm_package_umd_main",
+    "size:es5": "echo \"Gzipped Size (ES5): $(strip-json-comments --no-whitespace $npm_package_main | gzip-size | pretty-bytes)\"",
+    "size:es6": "echo \"Gzipped Size (ES6): $(strip-json-comments --no-whitespace $npm_package_jsnext_main | gzip-size | pretty-bytes)\""
+  },
+  "umd:main": "dist/domlette.umd.js",
+  "version": "1.0.2"
+}
