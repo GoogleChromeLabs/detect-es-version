@@ -1,9 +1,8 @@
 'use strict'
 
-// consider ESM
-
 function isModern(code) {
-    return false;
+    let result = require('./is-modern-ast.js')(code);
+    return result;
 }
 
 module.exports = isModern;
