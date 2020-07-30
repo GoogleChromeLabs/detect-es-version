@@ -1,0 +1,25 @@
+{
+  "name": "is-modern",
+  "version": "1.0.0",
+  "description": "A CLI tool that tells you if a package is using modern code.",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/GaryLChew/is-modern.git"
+  },
+  "keywords": [
+    "modern",
+    "javascript",
+    "ecmascript",
+    "es5",
+    "es2016",
+    "es2017",
+    "es2018",
+    "es2019",
+    "es2020"
+  ],
+  "author": "Gary Chew",
+  "bugs": {
+    "url": "https://github.com/GaryLChew/is-modern/issues"
+  },
+  "homepage": "https://github.com/GaryLChew/is-modern#readme"
+}
