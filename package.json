@@ -6,7 +6,8 @@
     "is-modern": "cli.js"
   },
   "scripts": {
-    "test": "jest"
+    "test": "jest",
+    "benchmark-is-modern": "node ./test/is-modern-benchmark.js"
   },
   "repository": {
     "type": "git",
@@ -29,6 +30,7 @@
   },
   "homepage": "https://github.com/GaryLChew/is-modern#readme",
   "devDependencies": {
+    "benchmark": "^2.1.4",
     "jest": "^26.1.0"
   },
   "dependencies": {

@@ -31,4 +31,3 @@ function isModern(code) {
 }
 
 module.exports = isModern;
-// rename to hasModernTokens, hasModernAST, canBeParseByAcorn
