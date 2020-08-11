@@ -17,7 +17,7 @@ function isTokenModern(token) {
 
 function isModern(code) {
     const tokenizer = acorn.tokenizer(code, {
-        ecmaVersion: 10
+        ecmaVersion: 11
     });
 
     let token;
