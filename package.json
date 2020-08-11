@@ -7,7 +7,7 @@
   },
   "scripts": {
     "test": "jest",
-    "benchmark-is-modern": "node ./test/is-modern-benchmark.js"
+    "benchmark-is-modern": "node test/get-ecma-version-benchmark.js"
   },
   "repository": {
     "type": "git",

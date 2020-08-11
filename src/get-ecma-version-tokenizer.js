@@ -1,33 +1,32 @@
 'use strict'
 const acorn = require("acorn");
 
-function isTokenModern(token) {
+function getTokenEcmaVersion(token) {
     switch(token.type.label) {
         case 'name':
             if (token.value === 'async') {
-                return true;
+                return 2017;
             }
             break;
         case 'const':
-            return true;
+            return 2017;
         default:
-            return false;
+            return 5;
     }
 }
 
-function isModern(code) {
+function getEcmaVersion(code) {
     const tokenizer = acorn.tokenizer(code, {
         ecmaVersion: 11
     });
 
     let token;
+    let ecmaVersion = 5;
     do {
         token = tokenizer.getToken()
-        if (isTokenModern(token)) {
-            return true;
-        }
+        ecmaVersion = Math.max(ecmaVersion, getTokenEcmaVersion(token));
     } while (token.type !== acorn.tokTypes.eof)
-    return false;
+    return ecmaVersion;
 }
 
-module.exports = isModern;
+module.exports = getEcmaVersion;

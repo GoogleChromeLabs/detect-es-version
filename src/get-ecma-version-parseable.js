@@ -1,17 +1,17 @@
 'use strict'
 const acorn = require("acorn");
 
-function isModern(code) {
+function getEcmaVersion(code) {
     try {
         acorn.parse(code, {
             ecmaVersion: 5,
             sourceType: 'module',
             allowHashBang: true
         });
-        return false;
+        return 5;
     } catch (e) {
-        return true;
+        return 2015;
     }
 }
 
-module.exports = isModern;
+module.exports = getEcmaVersion;

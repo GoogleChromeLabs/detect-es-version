@@ -1,6 +1,4 @@
 #!/usr/bin/env node
 'use strict'
 
-const isModern = require("./src/is-modern");
-
-console.log(isModern());
+const { getEcmaVersion } = require("./src/index.js");
