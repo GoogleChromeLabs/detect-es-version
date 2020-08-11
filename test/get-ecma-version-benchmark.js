@@ -1,51 +1,51 @@
 const fs = require('fs');
 const path = require("path");
 const Benchmark = require('benchmark');
-const isModernTokenizer = require('../src/is-modern-tokenizer');
-const isModernAST = require('../src/is-modern-ast');
-const isModernParseable = require('../src/is-modern-parseable');
+const getEcmaVersionTokenizer = require('../src/get-ecma-version-tokenizer');
+const getEcmaVersionAST = require('../src/get-ecma-version-ast');
+const getEcmaVersionParseable = require('../src/get-ecma-version-parseable');
 
 const FIXTURES_DIR = `${__dirname}/fixtures/`;
 
-function getRuntime(code, isModern) {
+function getRuntime(code, getEcmaVersion) {
     const start = Date.now();
-    isModern(code);
+    getEcmaVersion(code);
     return Date.now() - start;
 }
 
-function benchmarkIsModernOnce(filename) {
+function benchmarkGetEcmaVersionOnce(filename) {
     let filePath = path.resolve(FIXTURES_DIR, filename);
     const code = fs.readFileSync(filePath, 'utf-8');
     const sizeInKB = fs.statSync(filePath)["size"] / 1000;
 
     console.log(
         "  %dms | %dms | %dms | %s (%d KB)",
-        getRuntime(code, isModernTokenizer),
-        getRuntime(code, isModernAST),
-        getRuntime(code, isModernParseable),
+        getRuntime(code, getEcmaVersionTokenizer),
+        getRuntime(code, getEcmaVersionAST),
+        getRuntime(code, getEcmaVersionParseable),
         filename,
         sizeInKB
     );
 }
 
-function benchmarkIsModernMultiple(filename) {
+function benchmarkGetEcmaVersionMultiple(filename) {
     let filePath = path.resolve(FIXTURES_DIR, filename);
     const code = fs.readFileSync(filePath, 'utf-8');
     const sizeInKB = fs.statSync(filePath)["size"] / 1000;
 
     const suite = new Benchmark.Suite;
     suite
-        .add('isModernTokenizer', function () {
-            isModernTokenizer(code);
+        .add('getEcmaVersionTokenizer', function () {
+            getEcmaVersionTokenizer(code);
         })
-        .add('isModernAST', function () {
-            isModernAST(code);
+        .add('getEcmaVersionAST', function () {
+            getEcmaVersionAST(code);
         })
-        .add('isModernParseable', function () {
-            isModernParseable(code);
+        .add('getEcmaVersionParseable', function () {
+            getEcmaVersionParseable(code);
         })
         .on('start', function () {
-            console.log('Benchmarking isModern for %s (%d KB)', filename, sizeInKB);
+            console.log('Benchmarking getEcmaVersion for %s (%d KB)', filename, sizeInKB);
         })
         .on('cycle', function (event) {
             console.log('  ' + String(event.target));
@@ -62,9 +62,9 @@ const filenames = fs.readdirSync(FIXTURES_DIR);
 
 console.log('Single-run Benchmarks')
 console.log('Tokenizer | AST | Parseable | File');
-filenames.forEach((filename) => benchmarkIsModernOnce(filename));
+filenames.forEach((filename) => benchmarkGetEcmaVersionOnce(filename));
 
 console.log('');
 
 console.log('Multi-run Benchmarks')
-filenames.forEach((filename) => benchmarkIsModernMultiple(filename));
+filenames.forEach((filename) => benchmarkGetEcmaVersionMultiple(filename));
