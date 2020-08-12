@@ -1,7 +1,5 @@
 const {getPackageEcmaVersion} = require('../src/index.js');
 
-// ${'desktop@0.1.0'}           | ${true}
-// no main
 it.each`
   packageName                  | expected
   ${'request@2.88.2'}          | ${5}
