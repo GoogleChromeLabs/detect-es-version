@@ -1,13 +1,14 @@
 const rimraf = require('rimraf')
 const tmp = require('tmp');
-const childProcess = require('child_process')
+const childProcess = require('child_process');
+const { promisify } = require('util');
 
 const InstallationUtils = {
-    getInstallPath() {
-        return tmp.dirSync().name;
+    async getInstallPath() {
+        return promisify(tmp.dir)();
     },
 
-    installPackage(
+    async installPackage(
         packageString,
         installPath,
     ) {
@@ -26,7 +27,7 @@ const InstallationUtils = {
         ];
 
         const command = `npm install ${packageString} --${flags.join(' --')}`;
-        childProcess.execSync(
+        await promisify(childProcess.exec)(
             command,
             {cwd: installPath, maxBuffer: 1024 * 500}
         );
