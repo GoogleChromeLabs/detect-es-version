@@ -14,17 +14,17 @@ function isEcmaVersionModern(ecmaVersion) {
     return ecmaVersion > 5;
 }
 
-function getEntryPointEcmaVersion(context, packageName) {
+async function getEntryPointEcmaVersion(context, packageName) {
     const resolvedPath = resolve(context, packageName);
     const code = fs.readFileSync(resolvedPath, 'utf8');
     // TODO (ISSUE#5) Implement recursive getEntryPointEcmaVersion
     return getEcmaVersion(code);
 }
 
-function getPackageEcmaVersion(packageString) {
+async function getPackageEcmaVersion(packageString) {
     const parsedPackage = parsePackageString(packageString);
-    const installPath = InstallationUtils.getInstallPath();
-    InstallationUtils.installPackage(parsedPackage.name, installPath);
+    const installPath = await InstallationUtils.getInstallPath();
+    await InstallationUtils.installPackage(parsedPackage.name, installPath);
     const ecmaVersion = getEntryPointEcmaVersion(installPath, parsedPackage.name);
     InstallationUtils.cleanupPath(installPath);
     return ecmaVersion;
