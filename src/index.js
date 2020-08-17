@@ -1,10 +1,11 @@
 'use strict'
 const fs = require('fs');
+const path = require('path');
 const { promisify } = require('util');
 const parsePackageString = require('npm-package-arg');
 const enhancedResolve = require('enhanced-resolve');
 const InstallationUtils = require('./utils/installation-utils');
-const getEcmaVersionAST = require('./get-ecma-version-ast.js');
+const getEcmaVersion = require('./get-ecma-version-ast.js');
 
 const resolve = promisify(enhancedResolve.create({
     mainFields: ['module', 'browser', 'main'],
@@ -27,16 +28,12 @@ async function getPackageEcmaVersion(packageString) {
     const installPath = await InstallationUtils.getInstallPath();
     await InstallationUtils.installPackage(parsedPackage.name, installPath);
 
-    const packagePath = installPath + `\\node_modules\\${parsedPackage.name}`
+    const packagePath = path.join(installPath, 'node_modules', parsedPackage.name);
     const ecmaVersion = await getLocalPackageEcmaVersion(packagePath);
 
     await InstallationUtils.cleanupPath(installPath);
 
     return ecmaVersion;
-}
-
-function getEcmaVersion(code) {
-    return getEcmaVersionAST(code);
 }
 
 module.exports = { getEcmaVersion, getPackageEcmaVersion, getLocalPackageEcmaVersion, isEcmaVersionModern };
