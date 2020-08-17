@@ -14,19 +14,24 @@ function isEcmaVersionModern(ecmaVersion) {
     return ecmaVersion > 5;
 }
 
-async function getEntryPointEcmaVersion(context, packageName) {
-    const resolvedPath = await resolve(context, packageName);
-    const code = fs.readFileSync(resolvedPath, 'utf8');
-    // TODO (ISSUE#5) Implement recursive getEntryPointEcmaVersion
+async function getLocalPackageEcmaVersion(packagePath) {
+    const entryPoint = await resolve(packagePath, '.');
+    const code = fs.readFileSync(entryPoint, 'utf8');
+    // TODO (ISSUE#5) Implement recursive getLocalPackageEcmaVersion
     return getEcmaVersion(code);
 }
 
 async function getPackageEcmaVersion(packageString) {
     const parsedPackage = parsePackageString(packageString);
+
     const installPath = await InstallationUtils.getInstallPath();
     await InstallationUtils.installPackage(parsedPackage.name, installPath);
-    const ecmaVersion = await getEntryPointEcmaVersion(installPath, parsedPackage.name);
+
+    const packagePath = installPath + `\\node_modules\\${parsedPackage.name}`
+    const ecmaVersion = await getLocalPackageEcmaVersion(packagePath);
+
     await InstallationUtils.cleanupPath(installPath);
+
     return ecmaVersion;
 }
 
@@ -34,4 +39,4 @@ function getEcmaVersion(code) {
     return getEcmaVersionAST(code);
 }
 
-module.exports = { getEcmaVersion, getPackageEcmaVersion, getEntryPointEcmaVersion, isEcmaVersionModern };
+module.exports = { getEcmaVersion, getPackageEcmaVersion, getLocalPackageEcmaVersion, isEcmaVersionModern };
