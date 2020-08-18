@@ -21,7 +21,7 @@ const InstallationUtils = {
             'progress false',
             'loglevel error',
             'ignore-scripts',
-            'save-exact',
+            'no-save',
             'production',
             'json',
         ];
