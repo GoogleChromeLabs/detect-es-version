@@ -3,12 +3,12 @@
 const ora = require("ora");
 const { getPackageEcmaVersion, isEcmaVersionModern } = require("./src/index.js");
 
-function main(packageString) {
+async function main(packageString) {
     const spinner = ora({stream: process.stdout});
     spinner.text = `Fetching ${packageString}`;
     spinner.start();
     try {
-        const ecmaVersion = getPackageEcmaVersion(packageString)
+        const ecmaVersion = await getPackageEcmaVersion(packageString)
         if (isEcmaVersionModern(ecmaVersion)) {
             spinner.succeed(`${packageString} is modern (ES${ecmaVersion})!`);
         } else {
