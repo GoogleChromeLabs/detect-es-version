@@ -1,0 +1,22 @@
+{
+  "extends": [
+    "prettier"
+  ],
+  "plugins": [
+    "prettier"
+  ],
+  "rules": {
+    "prettier/prettier": [
+      "error",
+      {
+        "singleQuote": true
+      }
+    ]
+  },
+  "env": {
+    "jest": true
+  },
+  "parserOptions": {
+    "ecmaVersion": 2020
+  }
+}
