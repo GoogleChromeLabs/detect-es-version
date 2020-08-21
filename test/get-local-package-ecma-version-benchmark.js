@@ -12,11 +12,11 @@ async function coldStartBenchmark(packageString) {
   const packagePath = path.join(installPath, 'node_modules', packageName);
 
   console.log(
-    '  %dms | %s',
-    await BenchmarkUtils.getRuntime(() =>
+    '| %s | %dms |',
+    packageString,
+    await BenchmarkUtils.getAsyncRuntime(() =>
       getLocalPackageEcmaVersion(packagePath)
-    ),
-    packageString
+    )
   );
 
   await InstallationUtils.cleanupPath(installPath);
@@ -36,7 +36,7 @@ async function warmRunBenchmark(packageStrings, index) {
 
   const suite = new Benchmark.Suite('getLocalPackageEcmaVersion');
   suite
-    .add(`  Benchmarking getLocalPackageEcmaVersion for ${packageString}`, {
+    .add(`Benchmarking getLocalPackageEcmaVersion for ${packageString}`, {
       defer: true,
       fn: async function (deferred) {
         await getLocalPackageEcmaVersion(packagePath);
@@ -44,11 +44,10 @@ async function warmRunBenchmark(packageStrings, index) {
       },
     })
     .on('cycle', function (event) {
-      console.log('  ' + String(event.target));
+      console.log('%s  ', String(event.target));
       console.log(
-        '    Mean runtime: ' +
-          String((event.target.stats.mean * 1000).toFixed(2)) +
-          'ms'
+        '  Mean runtime: %dms  ',
+        String((event.target.stats.mean * 1000).toFixed(2))
       );
     })
     .on('complete', async function (event) {
@@ -77,12 +76,15 @@ async function main() {
     '@nelsongomes/ts-timeframe@0.2.2',
   ];
 
-  console.log('Single-run Benchmarks');
+  console.log('Cold-start Benchmarks');
+  console.log('');
+  console.log('| File | Time |');
+  console.log('|------|------|');
   for (const packageName of packageNames) {
     await coldStartBenchmark(packageName);
   }
 
-  console.log('\nMulti-run Benchmarks');
+  console.log('\nWarm-run Benchmarks  ');
   await warmRunBenchmark(packageNames, 0);
 }
 
