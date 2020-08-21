@@ -14,12 +14,12 @@ function coldStartBenchmark(filename) {
   const sizeInKB = fs.statSync(filePath)['size'] / 1000;
 
   console.log(
-    '  %dms | %dms | %dms | %s (%d KB)',
+    '| %s (%d KB) | %dms | %dms | %dms |',
+    filename,
+    sizeInKB,
     BenchmarkUtils.getRuntime(() => getEcmaVersionTokenizer(code)),
     BenchmarkUtils.getRuntime(() => getEcmaVersion(code)),
-    BenchmarkUtils.getRuntime(() => getEcmaVersionParseable(code)),
-    filename,
-    sizeInKB
+    BenchmarkUtils.getRuntime(() => getEcmaVersionParseable(code))
   );
 }
 
@@ -28,31 +28,31 @@ function warmRunBenchmark(filename) {
   const code = fs.readFileSync(filePath, 'utf-8');
   const sizeInKB = fs.statSync(filePath)['size'] / 1000;
 
-  const suite = new Benchmark.Suite();
+  const suite = new Benchmark.Suite('getEcmaVersion implementation benchmarks');
   suite
     .add('getEcmaVersionTokenizer', () => getEcmaVersionTokenizer(code))
     .add('getEcmaVersionAST', () => getEcmaVersion(code))
     .add('getEcmaVersionParseable', () => getEcmaVersionParseable(code))
     .on('start', () =>
       console.log(
-        'Benchmarking getEcmaVersion for %s (%d KB)',
+        'Benchmarking getEcmaVersion for %s (%d KB)  ',
         filename,
         sizeInKB
       )
     )
     .on('cycle', function (event) {
-      console.log('  ' + String(event.target));
+      console.log('  %s  ', String(event.target));
       console.log(
-        '    Mean runtime: ' +
-          String((event.target.stats.mean * 1000).toFixed(2)) +
-          'ms'
+        '    Mean runtime: %dms  ',
+        String((event.target.stats.mean * 1000).toFixed(2))
       );
     })
-    .on('complete', () =>
+    .on('complete', function () {
       console.log(
-        '  Fastest implementation: ' + this.filter('fastest').map('name') + '\n'
-      )
-    );
+        '  Fastest implementation: %s  ',
+        String(this.filter('fastest').map('name'))
+      );
+    });
 
   suite.run();
 }
@@ -60,8 +60,10 @@ function warmRunBenchmark(filename) {
 const filenames = fs.readdirSync(ENTRY_POINTS_DIR);
 
 console.log('Cold-start Benchmarks');
-console.log('Tokenizer | AST | Parseable | File');
+console.log('');
+console.log('| File (size) | Tokenizer | AST | Parseable |');
+console.log('|-------------|-----------|-----|-----------|');
 filenames.forEach((filename) => coldStartBenchmark(filename));
 
-console.log('\nWarm-run Benchmarks');
+console.log('\nWarm-run Benchmarks  ');
 filenames.forEach((filename) => warmRunBenchmark(filename));
