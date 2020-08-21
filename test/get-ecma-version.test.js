@@ -2,18 +2,18 @@ const fs = require('fs');
 const path = require('path');
 const { getEcmaVersion } = require('../src');
 
-const FIXTURES_DIR = `${__dirname}/fixtures/`;
+const ENTRY_POINTS_DIR = path.join(__dirname, 'fixtures', 'entryPoints');
 
-describe('getEcmaVersion', () => {
-  it('should return false for var', () => {
+describe('getEcmaVersion should', () => {
+  it('return 5 for var', () => {
     expect(getEcmaVersion('var x = 123;')).toBe(5);
   });
 
-  it('should return false for const', () => {
+  it('return 2015 for const', () => {
     expect(getEcmaVersion('const x = 123;')).toBe(2015);
   });
 
-  it('should return false for async', () => {
+  it('return 2017 for async', () => {
     expect(getEcmaVersion('async function f(){}')).toBe(2017);
   });
 
@@ -25,8 +25,11 @@ describe('getEcmaVersion', () => {
     ${'domlette.es2015.js'}            | ${2015}
     ${'toybox-js-render-component.js'} | ${5}
     ${'ts-trapper.js'}                 | ${5}
-  `('should return $expected for $filename', ({ filename, expected }) => {
-    const code = fs.readFileSync(path.resolve(FIXTURES_DIR, filename));
+  `('return $expected for $filename', ({ filename, expected }) => {
+    const code = fs.readFileSync(
+      path.resolve(ENTRY_POINTS_DIR, filename),
+      'utf-8'
+    );
     expect(getEcmaVersion(code)).toBe(expected);
   });
 });
