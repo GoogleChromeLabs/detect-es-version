@@ -16,6 +16,7 @@ const MIN_ECMA_VERSION = 5;
 const MAX_THREADS = 10;
 const DEFAULT_RESOLVER_OPTIONS = {
   mainFields: ['module', 'browser', 'main'],
+  conditionNames: ['browser'],
 };
 const DEFAULT_PARSER_OPTIONS = {
   ecmaVersion: 2020,
@@ -79,7 +80,7 @@ function isEcmaVersionModern(ecmaVersion) {
 /**
  * Determines the ecma version of a string of source code or AST
  * @param {String|Object} content The source code or AST to inspect
- * @ return {Number} The ecma version of the source code or AST
+ * @return {Number} The ecma version of the source code or AST
  */
 function getEcmaVersion(content) {
   let ecmaVersion = MIN_ECMA_VERSION;
@@ -151,11 +152,11 @@ async function getEntryPointEcmaVersion(
  */
 async function getLocalPackageEcmaVersion(
   packagePath,
-  resolveOptions = DEFAULT_RESOLVER_OPTIONS
+  resolverOptions = DEFAULT_RESOLVER_OPTIONS
 ) {
-  const resolve = promisify(enhancedResolve.create(resolveOptions));
+  const resolve = promisify(enhancedResolve.create(resolverOptions));
   const entryPoint = await resolve(packagePath, '.');
-  return await getEntryPointEcmaVersion(entryPoint, resolveOptions);
+  return await getEntryPointEcmaVersion(entryPoint, resolverOptions);
 }
 
 /**
