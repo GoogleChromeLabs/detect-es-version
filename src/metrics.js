@@ -20,6 +20,11 @@ async function safeGetPackageMetrics(pkg) {
   }
 }
 
+/**
+ * Get a package's metrics
+ * @param {String} packagePath An absolute path to a package directory
+ * @returns Promise<{Object}> Returns metrics for the package
+ */
 async function getLocalPackageMetrics(packagePath) {
   const packageMetrics = {};
   const packageJson = await PackageJsonUtils.getPackageJSON(packagePath);
@@ -47,7 +52,7 @@ async function getLocalPackageMetrics(packagePath) {
 
 /**
  * Get a package's metrics
- * @param {Object} pkg
+ * @param {Object} pkg An object representing a package
  * @returns {Object} Returns metrics for the package
  */
 async function getPackageMetrics(pkg) {
