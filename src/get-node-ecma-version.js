@@ -4,7 +4,7 @@ const astTypeToFeatures = getAstTypeToFeatures(require('../data/es-features'));
 
 function getAstTypeToFeatures(esFeatures) {
   const astTypeToFeatures = {};
-  for (feature of esFeatures) {
+  for (const feature of esFeatures) {
     if (!astTypeToFeatures[feature.astType]) {
       astTypeToFeatures[feature.astType] = [];
     }
