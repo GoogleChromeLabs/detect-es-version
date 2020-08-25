@@ -1,20 +1,37 @@
 const fs = require('fs');
 const path = require('path');
 const { getEcmaVersion } = require('../src');
+const esFeatures = require('../data/es-features');
 
 const ENTRY_POINTS_DIR = path.join(__dirname, 'fixtures', 'entryPoints');
 
+const negTestCases = ['function f()', 'var foo = 123'];
+
+const keyToEcma = Object.fromEntries(
+  esFeatures.map((esFeature) => [esFeature.key, esFeature.ecmaVersion])
+);
+
 describe('getEcmaVersion should', () => {
-  it('return 5 for var', () => {
-    expect(getEcmaVersion('var x = 123;')).toBe(5);
-  });
-
-  it('return 2015 for const', () => {
-    expect(getEcmaVersion('const x = 123;')).toBe(2015);
-  });
-
-  it('return 2017 for async', () => {
-    expect(getEcmaVersion('async function f(){}')).toBe(2017);
+  it.each`
+    key                            | testCase
+    ${'es.optional-catch-binding'} | ${'try {} catch {}'}
+    ${'es.default-param'}          | ${'function foo(bar=1) {}'}
+    ${'es.spread'}                 | ${'[...arr]'}
+    ${'es.for-of'}                 | ${'for (var element of arr) {}'}
+    ${'es.template-literal'}       | ${'var foo = `hello ${bar}`'}
+    ${'es.rest'}                   | ${'[a, b, ...rest] = [10, 20, 30, 40, 50, 60]'}
+    ${'es.generator'}              | ${'function* foo() {}'}
+    ${'es.exponentiation'}         | ${'2 ** 4'}
+    ${'es.async'}                  | ${'async function f() {}'}
+    ${'es.for-await-of'}           | ${'async () => { for await (var foo of bar) { } }'}
+    ${'es.bigint'}                 | ${'const foo = 123n'}
+    ${'es.yield'}                  | ${'yield i'}
+    ${'es.optional-chaining'}      | ${'obj?.foo'}
+    ${'es.nullish-coalescing'}     | ${'var foo = 0 ?? 42'}
+    ${'es.octal'}                  | ${'var foo = 0755'}
+  `('judge $key correctly', ({ key, testCase }) => {
+    expect(keyToEcma[key]).toBeDefined();
+    expect(getEcmaVersion(testCase)).toBe(keyToEcma[key]);
   });
 
   it.each`
