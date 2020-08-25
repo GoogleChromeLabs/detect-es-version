@@ -1,0 +1,4 @@
+const MIN_ECMA_VERSION = 5;
+const DEFAULT_MAX_THREADS = 10;
+
+module.exports = { MIN_ECMA_VERSION, DEFAULT_MAX_THREADS };

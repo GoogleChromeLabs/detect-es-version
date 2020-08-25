@@ -10,9 +10,8 @@ const walker = require('acorn-walk');
 const types = require('ast-module-types');
 const InstallationUtils = require('./utils/installation-utils');
 const getNodeEcmaVersion = require('./get-node-ecma-version');
+const { MIN_ECMA_VERSION, DEFAULT_MAX_THREADS } = require('./constants');
 
-const MIN_ECMA_VERSION = 5;
-const MAX_THREADS = 10;
 const DEFAULT_RESOLVER_OPTIONS = {
   mainFields: ['module', 'browser', 'main'],
   conditionNames: ['browser'],
@@ -108,7 +107,7 @@ async function getEntryPointEcmaVersion(
   const resolve = promisify(enhancedResolve.create(resolverOptions));
   const dependencyEcmaVersions = await async.mapLimit(
     dependencies,
-    MAX_THREADS,
+    DEFAULT_MAX_THREADS,
     async (dependency) => {
       const dependencyPath = await resolve(
         path.dirname(entryPoint),
