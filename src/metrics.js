@@ -3,7 +3,7 @@ const async = require('async');
 const InstallationUtils = require('./utils/installation-utils');
 const PackageJsonUtils = require('./utils/package-json-utils');
 const { getLocalPackageEcmaVersion } = require('./index');
-const DEFAULT_MAX_THREADS = 10;
+const { DEFAULT_MAX_THREADS } = require('./constants');
 
 const ALL_FIELDS = [
   'main',
