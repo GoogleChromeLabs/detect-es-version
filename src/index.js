@@ -6,11 +6,9 @@ const async = require('async');
 const parsePackageString = require('npm-package-arg');
 const enhancedResolve = require('enhanced-resolve');
 const acorn = require('acorn');
-const Walker = require('node-source-walk');
+const walker = require('acorn-walk');
 const types = require('ast-module-types');
 const InstallationUtils = require('./utils/installation-utils');
-
-const walker = new Walker();
 
 const MIN_ECMA_VERSION = 5;
 const MAX_THREADS = 10;
@@ -88,7 +86,7 @@ function getEcmaVersion(content) {
     typeof content === 'object'
       ? content
       : acorn.parse(content, DEFAULT_PARSER_OPTIONS);
-  walker.walk(ast, function (node) {
+  walker.full(ast, function (node) {
     ecmaVersion = Math.max(ecmaVersion, getNodeEcmaVersion(node));
   });
   return ecmaVersion;
@@ -117,7 +115,7 @@ async function getEntryPointEcmaVersion(
   const code = await fs.readFile(entryPoint, 'utf8');
   const ast = acorn.parse(code, DEFAULT_PARSER_OPTIONS);
 
-  walker.walk(ast, function (node) {
+  walker.full(ast, function (node) {
     entryEcmaVersion = Math.max(entryEcmaVersion, getNodeEcmaVersion(node));
     const dependency = getNodeDependency(node);
     if (dependency && dependency.startsWith('.')) {
