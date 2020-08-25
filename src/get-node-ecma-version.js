@@ -1,4 +1,4 @@
-const MIN_ECMA_VERSION = 5;
+const { MIN_ECMA_VERSION } = require('./constants');
 
 const astTypeToFeatures = getAstTypeToFeatures(require('../data/es-features'));
 
