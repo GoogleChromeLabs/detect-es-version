@@ -1,5 +1,5 @@
 'use strict';
-const fs = require('fs');
+const fs = require('fs').promises;
 const path = require('path');
 const { promisify } = require('util');
 const async = require('async');
@@ -114,7 +114,7 @@ async function getEntryPointEcmaVersion(
   let entryEcmaVersion = MIN_ECMA_VERSION;
   let dependencies = [];
 
-  const code = await promisify(fs.readFile)(entryPoint, 'utf8');
+  const code = await fs.readFile(entryPoint, 'utf8');
   const ast = acorn.parse(code, DEFAULT_PARSER_OPTIONS);
 
   walker.walk(ast, function (node) {
