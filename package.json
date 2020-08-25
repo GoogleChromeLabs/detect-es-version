@@ -46,6 +46,6 @@
     "npm-package-arg": "^8.0.1",
     "ora": "^5.0.0",
     "rimraf": "^3.0.2",
-    "tmp": "^0.2.1"
+    "tmp-promise": "^3.0.2"
   }
 }

@@ -1,11 +1,11 @@
 const rimraf = require('rimraf');
-const tmp = require('tmp');
+const tmp = require('tmp-promise');
 const childProcess = require('child_process');
 const { promisify } = require('util');
 
 const InstallationUtils = {
   async getInstallPath() {
-    return promisify(tmp.dir)();
+    return (await tmp.dir()).path;
   },
 
   async installPackage(packageString, installPath) {
