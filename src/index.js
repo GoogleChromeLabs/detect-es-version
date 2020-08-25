@@ -9,6 +9,7 @@ const acorn = require('acorn');
 const walker = require('acorn-walk');
 const types = require('ast-module-types');
 const InstallationUtils = require('./utils/installation-utils');
+const getNodeEcmaVersion = require('./get-node-ecma-version');
 
 const MIN_ECMA_VERSION = 5;
 const MAX_THREADS = 10;
@@ -21,25 +22,6 @@ const DEFAULT_PARSER_OPTIONS = {
   sourceType: 'module',
   allowHashBang: true,
 };
-
-function getNodeEcmaVersion(node) {
-  switch (node.type) {
-    case 'ClassDeclaration':
-      return 2015;
-    case 'ClassExpression':
-      return 5;
-    case 'VariableDeclaration':
-      if (node.kind === 'const') {
-        return 2015;
-      }
-    case 'FunctionDeclaration':
-      if (node.async) {
-        return 2017;
-      }
-    default:
-      return 5;
-  }
-}
 
 function getNodeDependency(node) {
   switch (node.type) {
