@@ -1,9 +1,8 @@
 const path = require('path');
 const async = require('async');
-const InstallationUtils = require('../src/utils/installation-utils');
-const PackageJsonUtils = require('../src/utils/package-json-utils');
-const { getLocalPackageEcmaVersion } = require('../src/index.js');
-
+const InstallationUtils = require('./utils/installation-utils');
+const PackageJsonUtils = require('./utils/package-json-utils');
+const { getLocalPackageEcmaVersion } = require('./index');
 const DEFAULT_MAX_THREADS = 10;
 // Prefers fields closer to the beginning of the list
 const MODERN_FIELDS = ['exports.browser', 'browser', 'module'];
