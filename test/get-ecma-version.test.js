@@ -14,21 +14,23 @@ const keyToEcma = Object.fromEntries(
 describe('getEcmaVersion should', () => {
   it.each`
     key                            | testCase
-    ${'es.optional-catch-binding'} | ${'try {} catch {}'}
     ${'es.default-param'}          | ${'function foo(bar=1) {}'}
+    ${'es.rest'}                   | ${'[a, b, ...rest] = [10, 20, 30, 40, 50, 60]'}
     ${'es.spread'}                 | ${'[...arr]'}
     ${'es.for-of'}                 | ${'for (var element of arr) {}'}
+    ${'es.binary'}                 | ${'var foo = 0b0101'}
+    ${'es.octal'}                  | ${'var foo = 0o755'}
     ${'es.template-literal'}       | ${'var foo = `hello ${bar}`'}
-    ${'es.rest'}                   | ${'[a, b, ...rest] = [10, 20, 30, 40, 50, 60]'}
+    ${'es.const'}                  | ${'const foo = 123'}
+    ${'es.let'}                    | ${'let foo = 123'}
     ${'es.generator'}              | ${'function* foo() {}'}
     ${'es.exponentiation'}         | ${'2 ** 4'}
     ${'es.async'}                  | ${'async function f() {}'}
     ${'es.for-await-of'}           | ${'async () => { for await (var foo of bar) { } }'}
-    ${'es.bigint'}                 | ${'const foo = 123n'}
-    ${'es.yield'}                  | ${'yield i'}
+    ${'es.optional-catch-binding'} | ${'try {} catch {}'}
+    ${'es.big-int'}                | ${'const foo = 123n'}
     ${'es.optional-chaining'}      | ${'obj?.foo'}
     ${'es.nullish-coalescing'}     | ${'var foo = 0 ?? 42'}
-    ${'es.octal'}                  | ${'var foo = 0755'}
   `('judge $key correctly', ({ key, testCase }) => {
     expect(keyToEcma[key]).toBeDefined();
     expect(getEcmaVersion(testCase)).toBe(keyToEcma[key]);
