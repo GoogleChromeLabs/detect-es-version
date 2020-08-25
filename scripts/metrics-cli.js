@@ -19,7 +19,7 @@ const DEFAULT_OUTPUT_FILE_PATH = path.join(
 async function writePackageStatsToFile(inputFilePath, outputFilePath) {
   const packageList = require(inputFilePath).map((pkgObj) => pkgObj.package);
   const packageListMetrics = await getPackageListMetrics(packageList);
-  fs.writeFileSync(outputFilePath, JSON.stringify(packageListMetrics));
+  fs.writeFileSync(outputFilePath, JSON.stringify(packageListMetrics, null, 2));
 }
 
 async function main(
