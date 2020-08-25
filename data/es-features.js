@@ -1,7 +1,39 @@
 module.exports = [
   {
+    key: 'es.default-param',
+    astType: 'AssignmentPattern',
+    ecmaVersion: 2015,
+  },
+  {
+    key: 'es.rest',
+    astType: 'RestElement',
+    ecmaVersion: 2015,
+  },
+  {
+    key: 'es.spread',
+    astType: 'SpreadElement',
+    ecmaVersion: 2015,
+  },
+  {
+    key: 'es.computed-property',
+    astType: 'ObjectProperty',
+    isMatch: (node) => node.computed == true,
+    ecmaVersion: 2015,
+  },
+  {
     key: 'es.for-of',
     astType: 'ForOfStatement',
+    ecmaVersion: 2015,
+  },
+  {
+    key: 'es.binary',
+    astType: 'Literal',
+    isMatch: (node) => node.raw.startsWith('0b'),
+    ecmaVersion: 2015,
+  },
+  {
+    key: 'es.template-literal',
+    astType: 'TemplateLiteral',
     ecmaVersion: 2015,
   },
   {
@@ -22,14 +54,14 @@ module.exports = [
     ecmaVersion: 2015,
   },
   {
-    key: 'es.computed-property',
-    astType: 'ObjectProperty',
-    isMatch: (node) => node.computed == true,
+    key: 'es.super',
+    astType: 'Super',
     ecmaVersion: 2015,
   },
   {
-    key: 'es.super',
-    astType: 'Super',
+    key: 'es.generator',
+    astType: 'FunctionDeclaration',
+    isMatch: (node) => node.generator == true,
     ecmaVersion: 2015,
   },
   {
@@ -45,36 +77,10 @@ module.exports = [
     ecmaVersion: 2016,
   },
   {
-    key: 'es.await',
-    astType: 'AwaitExpression',
-    ecmaVersion: 2017,
-  },
-  {
     key: 'es.async',
     astType: 'FunctionDeclaration',
     isMatch: (node) => node.async == true,
     ecmaVersion: 2017,
-  },
-  {
-    key: 'es.spread',
-    astType: 'SpreadElement',
-    ecmaVersion: 2015,
-  },
-  {
-    key: 'es.default-param',
-    astType: 'AssignmentPattern',
-    ecmaVersion: 2015,
-  },
-  {
-    key: 'es.rest',
-    astType: 'RestElement',
-    ecmaVersion: 2015,
-  },
-  {
-    key: 'es.generator',
-    astType: 'FunctionDeclaration',
-    isMatch: (node) => node.generator == true,
-    ecmaVersion: 2015,
   },
   {
     key: 'es.for-await-of',
@@ -87,17 +93,6 @@ module.exports = [
     astType: 'CatchClause',
     isMatch: (node) => node.param == null,
     ecmaVersion: 2019,
-  },
-  {
-    key: 'es.template-literal',
-    astType: 'TemplateLiteral',
-    ecmaVersion: 2015,
-  },
-  {
-    key: 'es.binary',
-    astType: 'Literal',
-    isMatch: (node) => node.raw.startsWith('0b'),
-    ecmaVersion: 2020,
   },
   {
     key: 'es.big-int',
