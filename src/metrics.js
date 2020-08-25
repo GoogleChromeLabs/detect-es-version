@@ -32,7 +32,7 @@ async function getLocalPackageMetrics(packagePath) {
       mainFields: ['main', ...ALL_FIELDS],
     });
   }
-  for (modernField of MODERN_FIELDS) {
+  for (const modernField of MODERN_FIELDS) {
     if (PackageJsonUtils.getObjectField(packageJson, modernField)) {
       packageMetrics.modern = await getLocalPackageEcmaVersion(packagePath, {
         mainFields: modernField.includes('.')
