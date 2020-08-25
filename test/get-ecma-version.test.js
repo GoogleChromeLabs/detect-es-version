@@ -2,16 +2,28 @@ const fs = require('fs');
 const path = require('path');
 const { getEcmaVersion } = require('../src');
 const esFeatures = require('../data/es-features');
+const { MIN_ECMA_VERSION } = require('../src/constants');
 
 const ENTRY_POINTS_DIR = path.join(__dirname, 'fixtures', 'entryPoints');
 
-const negTestCases = ['function f()', 'var foo = 123'];
+const negativeTestCases = [
+  'function foo() {bar}',
+  'var foo = 123',
+  "var arr = ['hello']",
+  "var foo = 'async'",
+  "var foo = 'const'",
+  "var foo = '0b0101'",
+];
 
 const keyToEcma = Object.fromEntries(
   esFeatures.map((esFeature) => [esFeature.key, esFeature.ecmaVersion])
 );
 
 describe('getEcmaVersion should', () => {
+  it(`return ${MIN_ECMA_VERSION} for negative test cases`, () =>
+    negativeTestCases.forEach((testCase) =>
+      expect(getEcmaVersion(testCase)).toBe(MIN_ECMA_VERSION)
+    ));
   it.each`
     key                            | testCase
     ${'es.default-param'}          | ${'function foo(bar=1) {}'}
