@@ -15,14 +15,41 @@ module.exports = [
     ecmaVersion: 2015,
   },
   {
+    key: 'es.array-pattern',
+    astType: 'ArrayPattern',
+    ecmaVersion: 2015,
+  },
+  {
+    key: 'es.object-pattern',
+    astType: 'ObjectPattern',
+    ecmaVersion: 2015,
+  },
+  {
     key: 'es.computed-property',
-    astType: 'ObjectProperty',
+    astType: 'Property',
     isMatch: (node) => node.computed == true,
+    ecmaVersion: 2015,
+  },
+  {
+    key: 'es.object-functions',
+    astType: 'Property',
+    isMatch: (node) => node.method == true,
+    ecmaVersion: 2015,
+  },
+  {
+    key: 'es.meta-property',
+    astType: 'MetaProperty',
     ecmaVersion: 2015,
   },
   {
     key: 'es.for-of',
     astType: 'ForOfStatement',
+    ecmaVersion: 2015,
+  },
+  {
+    key: 'es.octal',
+    astType: 'Literal',
+    isMatch: (node) => node.raw.startsWith('0o') || node.raw.startsWith('0O'),
     ecmaVersion: 2015,
   },
   {
@@ -32,8 +59,18 @@ module.exports = [
     ecmaVersion: 2015,
   },
   {
+    key: 'es.template-element',
+    astType: 'TemplateElement',
+    ecmaVersion: 2015,
+  },
+  {
     key: 'es.template-literal',
     astType: 'TemplateLiteral',
+    ecmaVersion: 2015,
+  },
+  {
+    key: 'es.tagged-template',
+    astType: 'TaggedTemplateExpression',
     ecmaVersion: 2015,
   },
   {
@@ -49,13 +86,33 @@ module.exports = [
     ecmaVersion: 2015,
   },
   {
-    key: 'es.class',
-    astType: 'ClassMethod',
+    key: 'es.class-declaration',
+    astType: 'ClassDeclaration',
     ecmaVersion: 2015,
   },
   {
-    key: 'es.super',
-    astType: 'Super',
+    key: 'es.class-expression',
+    astType: 'ClassExpression',
+    ecmaVersion: 2015,
+  },
+  {
+    key: 'es.class-body',
+    astType: 'ClassBody',
+    ecmaVersion: 2015,
+  },
+  {
+    key: 'es.class-functions',
+    astType: 'MethodDefinition',
+    isMatch: (node) =>
+      node.kind == 'constructor' ||
+      node.kind == 'get' ||
+      node.kind == 'set' ||
+      node.kind == 'method',
+    ecmaVersion: 2015,
+  },
+  {
+    key: 'es.arrow-function',
+    astType: 'ArrowFunctionExpression',
     ecmaVersion: 2015,
   },
   {
@@ -83,9 +140,21 @@ module.exports = [
     ecmaVersion: 2017,
   },
   {
+    key: 'es.await',
+    astType: 'AwaitExpression',
+    ecmaVersion: 2017,
+  },
+  {
     key: 'es.for-await-of',
     astType: 'ForOfStatement',
     isMatch: (node) => node.await == true,
+    ecmaVersion: 2018,
+  },
+  {
+    key: 'es.object-spread',
+    astType: 'ObjectExpression',
+    isMatch: (node) =>
+      node.properties.some((property) => property.type == 'SpreadElement'),
     ecmaVersion: 2018,
   },
   {
@@ -98,6 +167,17 @@ module.exports = [
     key: 'es.big-int',
     astType: 'Literal',
     isMatch: (node) => node.bigint != null,
+    ecmaVersion: 2020,
+  },
+  {
+    key: 'es.optional-chaining',
+    astType: 'ChainExpression',
+    ecmaVersion: 2020,
+  },
+  {
+    key: 'es.nullish-coalescing',
+    astType: 'LogicalExpression',
+    isMatch: (node) => node.operator == '??',
     ecmaVersion: 2020,
   },
 ];
