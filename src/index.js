@@ -18,7 +18,7 @@ const DEFAULT_RESOLVER_OPTIONS = {
 };
 const DEFAULT_PARSER_OPTIONS = {
   ecmaVersion: 2020,
-  sourceType: 'module',
+  allowImportExportEverywhere: true,
   allowHashBang: true,
 };
 
