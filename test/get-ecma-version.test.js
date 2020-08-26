@@ -15,7 +15,10 @@ const negativeTestCases = [
   "var foo = '0b0101'",
 ];
 
-const keyToEcma = Object.fromEntries(
+// const keyToEcma = Object.fromEntries(
+//   esFeatures.map((esFeature) => [esFeature.key, esFeature.ecmaVersion])
+// );
+const keyToEcma = new Map(
   esFeatures.map((esFeature) => [esFeature.key, esFeature.ecmaVersion])
 );
 
@@ -44,8 +47,8 @@ describe('getEcmaVersion should', () => {
     ${'es.optional-chaining'}      | ${'obj?.foo'}
     ${'es.nullish-coalescing'}     | ${'var foo = 0 ?? 42'}
   `('judge $key correctly', ({ key, testCase }) => {
-    expect(keyToEcma[key]).toBeDefined();
-    expect(getEcmaVersion(testCase)).toBe(keyToEcma[key]);
+    expect(keyToEcma.get(key)).toBeDefined();
+    expect(getEcmaVersion(testCase)).toBe(keyToEcma.get(key));
   });
 
   it.each`
