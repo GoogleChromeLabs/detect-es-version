@@ -36,9 +36,8 @@ async function main(
     await writePackageStatsToFile(inputFilePath, outputFilePath);
     const duration = (Date.now() - start) / 1000;
     spinner.succeed(
-      `Analyzed ${inputFile} in ${duration.toFixed(
-        2
-      )}s.\nResults have been stored in ${outputFile}`
+      `Analyzed ${inputFile} in ${duration.toFixed(2)}s.\n
+      Results have been stored in ${outputFile}`
     );
     process.exit(0);
   } catch (e) {

@@ -4,9 +4,16 @@ const InstallationUtils = require('./utils/installation-utils');
 const PackageJsonUtils = require('./utils/package-json-utils');
 const { getLocalPackageEcmaVersion } = require('./index');
 const DEFAULT_MAX_THREADS = 10;
-// Prefers fields closer to the beginning of the list
-const MODERN_FIELDS = ['exports.browser', 'browser', 'module'];
-const ALL_FIELDS = ['module', 'browser', 'main'];
+
+const ALL_FIELDS = [
+  'main',
+  'module',
+  'browser',
+  'jsnext:main',
+  'modern',
+  'source',
+  'exports.browser',
+];
 
 async function safeGetPackageMetrics(pkg) {
   try {
@@ -19,34 +26,40 @@ async function safeGetPackageMetrics(pkg) {
   }
 }
 
+function createResolverOptions(entryPointField) {
+  return entryPointField.startsWith('exports.')
+    ? {
+        mainFields: ALL_FIELDS,
+        conditionNames: new Set(entryPointField.replace('exports.', '')),
+      }
+    : {
+        mainFields: [entryPointField, ...ALL_FIELDS],
+      };
+}
+
 /**
  * Get a package's metrics
  * @param {String} packagePath An absolute path to a package directory
  * @returns Promise<{Object}> Returns metrics for the package
  */
 async function getLocalPackageMetrics(packagePath) {
-  const packageMetrics = {};
   const packageJson = await PackageJsonUtils.getPackageJSON(packagePath);
-  if (PackageJsonUtils.getObjectField(packageJson, 'main')) {
-    packageMetrics.main = await getLocalPackageEcmaVersion(packagePath, {
-      mainFields: ['main', ...ALL_FIELDS],
-    });
-  }
-  for (const modernField of MODERN_FIELDS) {
-    if (PackageJsonUtils.getObjectField(packageJson, modernField)) {
-      packageMetrics.modern = await getLocalPackageEcmaVersion(packagePath, {
-        mainFields: modernField.includes('.')
-          ? ALL_FIELDS
-          : [modernField, ...ALL_FIELDS],
-        conditionNames: modernField.startsWith('exports.')
-          ? new Set(modernField.replace('exports.', ''))
-          : [],
-      });
-      packageMetrics.modernField = modernField;
-      break;
-    }
-  }
-  return packageMetrics;
+
+  return Object.fromEntries(
+    await async.mapLimit(
+      ALL_FIELDS.filter((field) =>
+        PackageJsonUtils.getObjectField(packageJson, field)
+      ),
+      DEFAULT_MAX_THREADS,
+      async (field) => {
+        const ecmaVersion = await getLocalPackageEcmaVersion(
+          packagePath,
+          createResolverOptions(field)
+        );
+        return [field, ecmaVersion];
+      }
+    )
+  );
 }
 
 /**
