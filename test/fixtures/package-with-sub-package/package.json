@@ -1,8 +1,0 @@
-{
-  "main": "main.js",
-  "browser": "browser.js",
-  "exports": {
-    "node": "unused",
-    "browser": "browser.js"
-  }
-}
