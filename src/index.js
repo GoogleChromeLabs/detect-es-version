@@ -104,8 +104,8 @@ async function getEntryPointEcmaVersion(
   resolverOptions = DEFAULT_RESOLVER_OPTIONS,
   visited = new Set()
 ) {
-  if (visited.has(entryPoint) || entryPoint.endsWith('json')) {
-    return MIN_ECMA_VERSION;
+  if (visited.has(entryPoint) || entryPoint.endsWith('.json')) {
+    return -1;
   }
   visited.add(entryPoint);
 
