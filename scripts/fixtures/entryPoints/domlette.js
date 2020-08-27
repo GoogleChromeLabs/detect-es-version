@@ -1,0 +1,2 @@
+function e(e){var n=e[0],o=e[1]||{},r=e[2]||[],d=e[3],i=document.createElement(n);for(var u in o)"string"==typeof o[u]?i.setAttribute(u,o[u]):i[u]=o[u];return t(i,r),void 0!==d&&d(i),i}function t(t,n){n=n||[];for(var o=0;o<n.length;o++)n[o]&&("string"==typeof n[o]?t.appendChild(document.createTextNode(n[o])):t.appendChild(e(n[o])))}module.exports={h:e,mount:t};
+//# sourceMappingURL=domlette.js.map
