@@ -1,6 +1,6 @@
 {
   "name": "detect-es-version",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "A CLI tool that tells you if a package is using modern code.",
   "bin": {
     "detect-es-version": "./cli.js",
@@ -30,6 +30,12 @@
   "bugs": {
     "url": "https://github.com/GoogleChromeLabs/detect-es-version/issues"
   },
+  "files": [
+    "data/",
+    "scripts/",
+    "src/",
+    "cli.js"
+  ],
   "homepage": "https://github.com/GoogleChromeLabs/detect-es-version#readme",
   "devDependencies": {
     "benchmark": "^2.1.4",
