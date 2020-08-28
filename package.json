@@ -1,11 +1,12 @@
 {
   "name": "detect-es-version",
-  "version": "0.1.2",
+  "version": "0.1.4",
   "description": "A CLI tool that tells you if a package is using modern code.",
   "bin": {
     "detect-es-version": "./cli.js",
     "detect-es-metrics": "./scripts/metrics-cli.js"
   },
+  "main": "./src/index.js",
   "scripts": {
     "test": "jest",
     "benchmark": "node scripts/get-local-package-ecma-version-benchmark.js"
@@ -32,7 +33,7 @@
   },
   "files": [
     "data/",
-    "scripts/",
+    "scripts/metrics-cli.js",
     "src/",
     "cli.js"
   ],
