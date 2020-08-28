@@ -1,20 +1,22 @@
 {
-  "name": "is-modern",
-  "version": "1.0.0",
+  "name": "detect-es-version",
+  "version": "0.1.0",
   "description": "A CLI tool that tells you if a package is using modern code.",
   "bin": {
-    "is-modern": "cli.js"
+    "detect-es-version": "./cli.js",
+    "detect-es-metrics": "./scripts/metrics-cli.js"
   },
   "scripts": {
     "test": "jest",
-    "benchmark-is-modern": "node test/get-ecma-version-benchmark.js"
+    "benchmark": "node scripts/get-local-package-ecma-version-benchmark.js"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/GaryLChew/is-modern.git"
+    "url": "git+https://github.com/GoogleChromeLabs/detect-es-version.git"
   },
   "keywords": [
     "modern",
+    "detect",
     "javascript",
     "ecmascript",
     "es5",
@@ -26,9 +28,9 @@
   ],
   "author": "Gary Chew",
   "bugs": {
-    "url": "https://github.com/GaryLChew/is-modern/issues"
+    "url": "https://github.com/GoogleChromeLabs/detect-es-version/issues"
   },
-  "homepage": "https://github.com/GaryLChew/is-modern#readme",
+  "homepage": "https://github.com/GoogleChromeLabs/detect-es-version#readme",
   "devDependencies": {
     "benchmark": "^2.1.4",
     "eslint": "^7.7.0",
