@@ -59,20 +59,4 @@ describe('getEcmaVersion should', () => {
     expect(keyToEcma.get(key)).toBeDefined();
     expect(getEcmaVersion(testCase)).toBe(keyToEcma.get(key));
   });
-
-  it.each`
-    filename                           | expected
-    ${'bowser.js'}                     | ${5}
-    ${'bowser.es2015.js'}              | ${2015}
-    ${'domlette.js'}                   | ${5}
-    ${'domlette.es2015.js'}            | ${2015}
-    ${'toybox-js-render-component.js'} | ${5}
-    ${'ts-trapper.js'}                 | ${5}
-  `('return $expected for $filename', ({ filename, expected }) => {
-    const code = fs.readFileSync(
-      path.resolve(ENTRY_POINTS_DIR, filename),
-      'utf-8'
-    );
-    expect(getEcmaVersion(code)).toBe(expected);
-  });
 });
