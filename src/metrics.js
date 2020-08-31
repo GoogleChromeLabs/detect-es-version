@@ -1,3 +1,19 @@
+/**
+ * Copyright 2018 Google LLC
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License"); you may not
+ * use this file except in compliance with the License. You may obtain a copy of
+ * the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+ * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
+ * License for the specific language governing permissions and limitations under
+ * the License.
+ */
+
 const path = require('path');
 const async = require('async');
 const InstallationUtils = require('./utils/installation-utils');
@@ -64,8 +80,8 @@ async function getLocalPackageMetrics(packagePath) {
 
 /**
  * Get a package's metrics
- * @param {Object} pkg An object representing a package
- * @returns {Object} Returns metrics for the package
+ * @param {object} pkg An object representing a package
+ * @returns {Promise<object>} Returns metrics for the package
  */
 async function getPackageMetrics(pkg) {
   const packageString = pkg.name + '@' + pkg.version;
@@ -80,8 +96,8 @@ async function getPackageMetrics(pkg) {
 
 /**
  * Get a list of packages' metrics
- * @param {Object[]} packageList A list of packages
- * @return {Promise<Object[]>} Returns a list of metrics objects. Erroneous metrics are removed.
+ * @param {object[]} packageList A list of packages
+ * @return {Promise<object[]>} Returns a list of metrics objects. Erroneous metrics are removed.
  */
 async function getPackageListMetrics(packageList) {
   const packageMetrics = await async.mapLimit(
