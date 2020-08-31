@@ -11,10 +11,7 @@
     "test": "jest",
     "benchmark": "node scripts/get-local-package-ecma-version-benchmark.js"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/GoogleChromeLabs/detect-es-version.git"
-  },
+  "repository": "GoogleChromeLabs/detect-es-version",
   "keywords": [
     "modern",
     "detect",
@@ -27,17 +24,15 @@
     "es2019",
     "es2020"
   ],
+  "license": "Apache-2.0",
   "author": "Gary Chew",
-  "bugs": {
-    "url": "https://github.com/GoogleChromeLabs/detect-es-version/issues"
-  },
   "files": [
     "data/",
     "scripts/metrics-cli.js",
     "src/",
     "cli.js"
   ],
-  "homepage": "https://github.com/GoogleChromeLabs/detect-es-version#readme",
+  "homepage": "https://github.com/GoogleChromeLabs/detect-es-version",
   "devDependencies": {
     "benchmark": "^2.1.4",
     "eslint": "^7.7.0",
@@ -57,5 +52,8 @@
     "rimraf": "^3.0.2",
     "tmp-promise": "^3.0.2",
     "yargs": "^15.4.1"
+  },
+  "jest": {
+    "testTimeout": 30000
   }
 }
