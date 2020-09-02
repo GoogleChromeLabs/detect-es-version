@@ -4,7 +4,7 @@
   <img src="https://raw.githubusercontent.com/GoogleChromeLabs/detect-es-version/master/demo.gif" alt="">
 </p>
 
-Given a package name, filepath, or string of code, returns the [ecma version](https://developer.mozilla.org/en-US/docs/Glossary/ECMAScript).
+Given a package name, filepath, or string of code, returns the [ecma version](https://developer.mozilla.org/en-US/docs/Glossary/ECMAScript). You can try out the web app version [here](http://detect-es-version.glitch.me/)!
 
 ## Usage
 ```javascript
