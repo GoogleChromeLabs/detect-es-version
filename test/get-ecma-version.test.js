@@ -40,7 +40,7 @@ describe('getEcmaVersion should', () => {
   `(`return ${MIN_ECMA_VERSION} for $testCase`, ({ testCase }) => {
     expect(getEcmaVersion(testCase)).toBe(MIN_ECMA_VERSION);
   });
-  // TODO have index.js import all? autoassign ecmaVersion
+
   it.each`
     key                                        | testCase
     ${'es.default-param' /*2015...*/}          | ${'function foo(bar=1) {}'}
